@@ -42,9 +42,9 @@ schema = Konfig::Schema.draw do
 end
 
 # Create a source object. In this example, we're using the environment
-# variables source and providing `env` which contains all the environment
+# variables source and providing `ENV` which contains all the environment
 # variables provided to the process.
-source = Konfig::Sources::Environment.new(env)
+source = Konfig::Sources::Environment.new(ENV)
 
 # Create your final configuration object by providing an array of sources.
 config = Konfig::Config.build(schema, sources: [source])
@@ -87,11 +87,11 @@ end
 If you have your configuration in environment variables, you can load that in as shown. Environment variables are the most common source of configuration. The config value will be taken by uppercasing the group and attribute name and joining them with an underscore. For example, the config value for `web.hostname` will be taken from the environment variable `WEB_HOSTNAME`.
 
 ```ruby
-source = Konfig::Sources::Environment.new(env)
+source = Konfig::Sources::Environment.new(ENV)
 
 # If your attribute is an array, by default, it will be split based on commas.
 # You can override this if you wish.
-source = Konfig::Sources::Environment.new(env, array_seperator: /\s+/)
+source = Konfig::Sources::Environment.new(ENV, array_seperator: /\s+/)
 ```
 
 ### YAML
