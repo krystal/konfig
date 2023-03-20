@@ -131,3 +131,13 @@ source = Konfig::Sources::Directory.new('/config', strip_contents: false)
 # new line characters. You can override this if you wish.
 source = Konfig::Sources::Directory.new('/config', array_seperator: /\,/)
 ```
+
+## Exporting configuration
+
+You can export your configuration schema to various formats as needed. Right now, the only built in option is Markdown.
+
+```ruby
+require 'konfig/exporters/env_vars_as_markdown'
+output = Konfig::Exporters::EnvVarsAsMarkdown.new(schema).export
+File.write("CONFIG.md", output)
+```
