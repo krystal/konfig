@@ -33,6 +33,12 @@ module Konfig
         expect(source.get([:example, :trusted_ips], attribute: attribute)).to eq(['127.0.0.1', '8.8.8.8'])
       end
     end
+
+    describe '.path_to_env_var' do
+      it 'converts a path to an environment variable' do
+        expect(described_class.path_to_env_var([:example, :hostname])).to eq('EXAMPLE_HOSTNAME')
+      end
+    end
   end
 
 end

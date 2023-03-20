@@ -31,11 +31,13 @@ module Konfig
           expect(attribute.transformer).to eq transformer
         end
 
-        it 'uses the block as the transformer if given' do
-          block = proc {}
+        it 'passes the block to the schema attribute dsl if given' do
+          block = proc do
+            description 'The hostname'
+          end
           dsl.send(type, :hostname, &block)
           attribute = group.attribute(:hostname)
-          expect(attribute.transformer).to eq block
+          expect(attribute.description).to eq 'The hostname'
         end
       end
     end

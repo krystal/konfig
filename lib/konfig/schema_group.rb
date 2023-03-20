@@ -6,6 +6,8 @@ require 'konfig/schema_attribute'
 module Konfig
   class SchemaGroup
 
+    attr_reader :attributes
+
     def initialize
       @attributes = {}
     end

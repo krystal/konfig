@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'konfig/schema_attribute'
-
+require 'konfig/schema_attribute_dsl'
 module Konfig
   class SchemaGroupDSL
 
@@ -11,7 +11,14 @@ module Konfig
 
     SchemaAttribute::TYPES.each do |type|
       define_method type do |name, **kwargs, &block|
-        @group.add_attribute(name, type: type, **kwargs, &block)
+        attribute = @group.add_attribute(name, type: type, **kwargs)
+
+        if block
+          dsl = SchemaAttributeDSL.new(attribute)
+          dsl.instance_eval(&block)
+        end
+
+        attribute
       end
     end
 

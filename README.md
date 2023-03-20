@@ -25,18 +25,31 @@ It's fairly easy to get started with Konfig. The block below shows the key thing
 # This should be configured globally.
 schema = Konfig::Schema.draw do
 
-  group :identity do
-    string    :hostname
-    integer   :port
-    string    :extra_hostnames, array: true
+  group :app do
+    string :hostname do
+      description "The hostname for the application"
+    end
+
+    integer  :port do
+      description "The port for the application"
+      default 8080
+    end
+
+    string :extra_hostnames do
+      array
+      description "Additional hosts to be permitted to receive requests"
+      transform { |v| v.downcase }
+    end
   end
 
+  # You can also define things more succicntly if you wish.
   group :mysql do
     string    :hostname,        default: 'localhost'
     integer   :port,            default: 3306
     string    :username,        default: 'root'
     string    :password
     string    :database_name,   default: 'my_database'
+    string    :roles,           array: true
   end
 
 end
@@ -48,9 +61,9 @@ source = Konfig::Sources::Environment.new(ENV)
 
 # Create your final configuration object by providing an array of sources.
 config = Konfig::Config.build(schema, sources: [source])
-config.identity.hostname = "localhost"
-config.identity.port = 8080
-config.identity.extra_hostnames = ["example.com", "example.org"]
+config.app.hostname = "localhost"
+config.app.port = 8080
+config.app.extra_hostnames = ["example.com", "example.org"]
 ```
 
 ## Notes
@@ -70,12 +83,13 @@ You can use the following types in your schema:
 
 ## Value transformation
 
-You can transform the value of an attribute by providing a block to the attribute definition. The block will be passed the value of the attribute and should return the transformed value.
+You can transform the value of an attribute by providing a block to the `transform` method. The block will be passed the value of the attribute and should return the transformed value.
 
 ```ruby
-group :identity do
-  string :trusted_ipds, array: true do |value|
-    value.map { |ip| IPAddr.new(ip) }
+group :app do
+  string :trusted_ipds do
+    array
+    transform { |ip| IPAddr.new(ip) }
   end
 end
 ```
