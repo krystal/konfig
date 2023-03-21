@@ -1,5 +1,15 @@
 # Konfig
 
+<a href="https://rubygems.org/gems/konfig-config">
+  <img src="https://img.shields.io/gem/v/konfig-config?label=RubyGems&logo=rubygems" alt="RubyGems">
+</a>
+<a href="https://github.com/krystal/konfig-config/actions">
+  <img src="https://img.shields.io/github/actions/workflow/status/krystal/konfig/commit.yaml?branch=main&logo=github" alt="Actions Status">
+</a>
+<a href="https://github.com/krystal/konfig/blob/main/MIT-LICENSE">
+  <img src="https://img.shields.io/github/license/krystal/konfig.svg?style=flat" alt="License Status">
+</a>
+
 This toolkit allows you to easily access configuration variables from a variety of different sources based on a pre-defined schema.
 
 There are a few built-in config sources that you can use, but you can also easily create your own. The sources available out the box are:
