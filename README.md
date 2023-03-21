@@ -13,7 +13,7 @@ There are a few built-in config sources that you can use, but you can also easil
 Just add the gem to your Gemfile as normal.
 
 ```ruby
-gem 'konfig-config', '~> 1.0'
+gem 'konfig-config', '~> 2.0'
 ```
 
 ## Getting started
