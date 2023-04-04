@@ -30,7 +30,7 @@ module Konfig
       @attributes.each_with_object({}) do |(name, attribute), hash|
         attribute_path = path + [name]
         if source.nil?
-          hash[name] = attribute.cast(attribute.default)
+          hash[name] = attribute.default
         else
           begin
             source_value = source.get(attribute_path, attribute: attribute)

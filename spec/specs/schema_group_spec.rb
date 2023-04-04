@@ -83,8 +83,13 @@ module Konfig
       context 'when not given a source' do
         it 'returns a hash with the default values only' do
           group.add_attribute(:hostname, default: 'localhost')
-          group.add_attribute(:port, default: 8080)
+          group.add_attribute(:port, default: '8080')
           expect(group.create_hash([])).to eq(hostname: 'localhost', port: '8080')
+        end
+
+        it 'does not cast the values provided as the default' do
+          group.add_attribute(:hostname, default: 12_345)
+          expect(group.create_hash([])).to eq(hostname: 12_345)
         end
 
         it 'does include attributes that do not have a default value' do
